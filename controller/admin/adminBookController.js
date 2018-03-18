@@ -41,14 +41,14 @@ angular.module('library').controller('adminBookController',["$scope","$http","re
                     e.innerHTML = data.data.message;
                     if(data.data.success){
                         e.className = 'alert alert-success';
-                        
+                        $timeout(function(){
+                            location.reload();
+                        },2000)
                     }else{
                         e.className = 'alert alert-danger';
                     }
                     angular.element(document.getElementsByClassName('message')).append(e);
-                    $timeout(function(){
-                        location.reload();
-                    },2000)
+                    
                 })
         }
 

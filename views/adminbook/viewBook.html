@@ -109,7 +109,16 @@
                                 <div class="input-group-prepend">
                                     <label class="input-group-text" for="inputGroupSelect01">Authors</label>
                                 </div>
-                                <select class="custom-select" ng-model="book.authors" multiple ng-options="a.name for a in authors track by a.id"></select>
+                                <select class="custom-select" ng-model="book.authors" name = "authorV" required multiple ng-options="a.name for a in authors track by a.id">
+                                        <option>Select Author</option>
+                                </select>
+                            </div>
+                            <!-- <p>invalid: {{bookForm.authorV.$invalid}}</p>
+                            <p>dirty: {{bookForm.authorV.$dirty}}</p> -->
+                            <div ng-if="bookForm.authorV.$invalid">
+                                <div class = "alert alert-info">
+                                    Choose at least one author
+                                </div>
                             </div>
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">

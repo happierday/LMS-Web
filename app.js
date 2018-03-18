@@ -12,4 +12,8 @@ library.config(['$routeProvider',function($routerProvider){
             templateUrl:'./views/adminbook/viewBook.html',
             controller: 'adminBookController'
         })
+        .when('/admin/viewauthor',{
+            templateUrl:'./views/adminauthor/author.html',
+            controller: 'adminAuthorController'
+        })
 }])
