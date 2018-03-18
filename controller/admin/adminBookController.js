@@ -1,5 +1,6 @@
-angular.module('library').controller('adminBookController',["$scope","$http","requestUrl",'$window','$compile',
-    function($scope,$http,url,$window,$compile){
+angular.module('library').controller('adminBookController',["$scope","$http","requestUrl",'$window','$timeout',
+    function($scope,$http,url,$window,$timeout){
+
         $http.get(url+"/getBooks?pageNo=1")
             .then(data => {
                 $scope.books = data.data;
@@ -29,7 +30,9 @@ angular.module('library').controller('adminBookController',["$scope","$http","re
                     $scope.publishers = data.data;
                 })
         }
-
+        /*
+        Delete Book
+        */
         $scope.deleteBook = function(bookId){
             $http.get(url+"/deleteBook/"+bookId)
                 .then(data => {
@@ -43,6 +46,9 @@ angular.module('library').controller('adminBookController',["$scope","$http","re
                         e.className = 'alert alert-danger';
                     }
                     angular.element(document.getElementsByClassName('message')).append(e);
+                    $timeout(function(){
+                        location.reload();
+                    },2000)
                 })
         }
 
@@ -87,7 +93,45 @@ angular.module('library').controller('adminBookController',["$scope","$http","re
                         e.className = 'alert alert-danger';
                     }
                     angular.element(document.getElementsByClassName('message')).append(e);
+                    $timeout(function(){
+                        location.reload();
+                    },2000)
                 })
+        }
+
+        $http.get(url+"/getBooksCount")
+            .then(data => {
+                $scope.pageSize = Math.ceil(data.data/10);
+                $scope.getNumber = function(pageSize) {
+                    return new Array(pageSize);   
+                }            
+                $scope.bookCount = data.data;
+        })
+
+        $scope.gotoPage = function(pageNo){
+            var query = "/getBooks?pageNo="+pageNo;
+            if($scope.searchString != null){
+                query = query + "&search="+$scope.searchString
+            }
+            $http.get(url+query)
+                .then(data => {
+                    $scope.books = data.data;
+                })
+        }
+
+        $scope.search = function(){
+            $http.get(url+"/getBooks?pageNo=1&search="+$scope.searchString)
+                .then(data => {
+                    $scope.books = data.data;
+            })
+            $http.get(url+"/getBooksCount?search="+$scope.searchString)
+                .then(data => {
+                    $scope.pageSize = Math.ceil(data.data/10);
+                    $scope.getNumber = function(pageSize) {
+                        return new Array(pageSize);   
+                    }            
+                    $scope.bookCount = data.data;
+            })
         }
 }])
 
