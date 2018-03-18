@@ -1,0 +1,139 @@
+<div class = "container">
+    <div class="jumbotron">
+        <!-- <div class = "row  show-hide-message">
+            <div ng-class ="messageClass">
+                {{ message }}
+            </div>
+        </div>     -->
+        <h2>Book Page</h2>
+        <button class="btn btn-info" ng-click="addBook()" data-toggle="modal" data-target="#editModal" ng-click="addBook()">Add Book</button>
+        <div class="message"></div>
+        <table class="table table-striped" ng-model="loans" ng-if="loans">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Borrower</th>
+                    <th>Branch</th>
+                    <th>DateOut</th>
+                    <th>DueDate</th>
+                    <th>DateIn</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="loan in loans">
+                    <td>{{loan.bookTitle}}</td>
+                    <td>{{loan.borrowerName}}</td>
+                    <td>{{loan.branchName}}</td>
+                    <td>{{loan.dateOut}}</td>
+                    <td>{{loan.dueDate}}</td>
+                    <td>Need to Return</td>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Genre</th>
+                    <th>Author</th>
+                    <th>Branch</th>
+                    <th>Publisher</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="book in books">
+                <td>{{$index + 1}}</td>
+                <td>{{book.title}}</td>
+                <td>
+                    <span ng-repeat="genre in book.genres">{{genre.name}}<br></span>
+                </td>
+                <td>
+                    <span ng-repeat="author in book.authors">{{author.name}}<br></span>
+                </td>
+                <td>
+                    <span ng-repeat="branch in book.branches">{{branch.name + ": " + branch.copies + " copies"}}<br></span>
+                </td>
+                <td>{{book.publisher.name}}</td>
+                <td>
+                    <button class="btn btn-info" id = "editBook" data-toggle="modal" data-target="#editModal" ng-click="editBook(book)">Edit</button>
+                </td>
+                <td>
+                    <button class="btn btn-danger"
+                    ng-click="deleteBook(book.id)">Delete</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <nav ng-controller="pageController" aria-label="Page navigation example">
+            <ul class="pagination">
+                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                <li ng-repeat = "i in getNumber(pageSize) track by $index" class="page-item"><a class="page-link" ng-click="gotoPage($index+1)">{{$index + 1}}</a></li>
+                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+            </ul>
+        </nav>
+    </div>
+</div>
+
+ <!-- Modal -->
+        <!-- <script type="text/ng-template" id="editBook.html"> -->
+            <div class="modal fade" id="editModal" tabindex="-1" 
+                role="dialog" aria-labelledby="editModall" aria-hidden="true" ng-controller="adminBookController">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Edit Author</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form ng-submit="submit()">
+                            <div class="input-group input-group-sm mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroup-sizing-sm">Book Title</span>
+                                </div>
+                                <input ng-model="book.title" type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" for="inputGroupSelect01">Authors</label>
+                                </div>
+                                <select class="custom-select" ng-model="book.authors" multiple ng-options="a.name for a in authors track by a.id"></select>
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" for="inputGroupSelect01">Genres</label>
+                                </div>
+                                <select class="custom-select" multiple ng-model="book.genres" ng-options="g.name for g in genres track by g.id"></select>
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" for="inputGroupSelect01">Branches</label>
+                                </div>
+                                <select ng-change="selected()" class="custom-select" multiple ng-model="selectedBranches.value" ng-options="b.name for b in branches track by b.id"></select>
+                            </div>
+                            <div class="input-group input-group-sm mb-3" ng-repeat="branch in selectedBranches.value" id = "branches">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroup-sizing-sm">{{branch.name}}</span>
+                                </div>
+                                <input ng-model="branch.copies" type="text" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" for="inputGroupSelect01">Publisher</label>
+                                </div>
+                                <select class="custom-select" ng-model="book.publisher" ng-options="p.name for p in publishers track by p.id"></select>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary" onclick="$('.modal').modal('hide')">Save changes</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        <!-- </script> -->

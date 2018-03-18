@@ -1,1 +1,1 @@
-http-server -o -c-1 -a localhost -p 8000
+http-server -o -c-1 -a localhost -p 3000
