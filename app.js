@@ -12,8 +12,12 @@ library.config(['$routeProvider',function($routerProvider){
             templateUrl:'./views/adminbook/viewBook.html',
             controller: 'adminBookController'
         })
-        .when('/admin/viewauthor',{
+        .when('/admin/author',{
             templateUrl:'./views/adminauthor/author.html',
             controller: 'adminAuthorController'
+        })
+        .when('/admin/date',{
+            templateUrl: './views/date/date.html',
+            controller: 'adminDateController'
         })
 }])

@@ -1,0 +1,77 @@
+<div class = "container">
+    <div class = "jumbotron">
+        <div class = "message"></div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Author Name</th>
+                    <th>Books</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="author in authors">
+                <td>{{$index + 1}}</td>
+                <td>{{author.name}}</td>
+                <td>
+                    <span ng-repeat="book in author.books">{{book.title}}<br></span>
+                </td>
+                <td>
+                    <button class="btn btn-info" id = "editBook" data-toggle="modal" data-target="#editModal" ng-click="editAuthor(author)">Edit</button>
+                </td>
+                <td>
+                    <button class="btn btn-danger"
+                    ng-click="deleteAuthor(author.id)">Delete</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="modal fade" id="editModal" tabindex="-1" 
+                role="dialog" aria-labelledby="editModall" aria-hidden="true" ng-controller="adminAuthorController">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Author Menu</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form ng-submit="submit()" name="authorForm">
+                            <div class="input-group input-group-sm mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" required id="inputGroup-sizing-sm">Author Name</span>
+                                </div>
+                                <input ng-model="author.name" type="text" name="name" minlength="3" maxlength="40" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                            </div>
+                            <div ng-if="authorForm.name.$invalid && authorForm.name.$dirty">
+                                <div class = "alert alert-danger">
+                                    Name should be longer than 3 and less than 40
+                                </div>
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" for="inputGroupSelect01">Books</label>
+                                </div>
+                                <select class="custom-select" ng-model="author.books" name = "authorV" required multiple ng-options="a.title for a in books track by a.id">
+                                </select>
+                            </div>
+                            <!-- <p>invalid: {{bookForm.authorV.$invalid}}</p>
+                            <p>dirty: {{bookForm.authorV.$dirty}}</p> -->
+                            <div ng-if="authorFOrm.authorV.$invalid">
+                                <div class = "alert alert-info">
+                                    Choose at least one author
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary" ng-disabled="authorForm.$invalid || !authorForm.$dirty" onclick="$('.modal').modal('hide')">Save changes</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>

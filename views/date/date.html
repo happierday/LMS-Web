@@ -1,0 +1,75 @@
+<div class = "container">
+    <div class = "jumbotron">
+        <h2>Loan Page</h2>
+        <div class = "message"></div>
+        <form class="form-inline" ng-submit="search()">
+            <input class="form-control mr-sm-2" type="search" ng-model= "searchTitle" placeholder="Search Title" aria-label="Search">
+            <!-- <input class="form-control mr-sm-2" type="search" ng-model= "searchBorrower" placeholder="Search Borrower" aria-label="Search">
+            <input class="form-control mr-sm-2" type="search" ng-model= "searchBranch" placeholder="Search Branch" aria-label="Search"> -->
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Borrower</th>
+                    <th>Branch</th>
+                    <th>DateOut</th>
+                    <th>DueDate</th>
+                    <th>DateIn</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="loan in loans">
+                <td>{{$index + 1}}</td>
+                <td>{{loan.bookTitle}}</td>
+                <td>{{loan.borrowerName}}</td>
+                <td>{{loan.branchName}}</td>
+                <td>{{loan.dateOut}}</td>
+                <td>{{loan.dueDate}}</td>
+                <td>{{loan.dateIn}}</td>
+                <td>
+                    <button class="btn btn-info" id = "editBook" ng-if="!loan.dateIn" data-toggle="modal" data-target="#editModal" ng-click="editLoan(loan)">Edit</button>
+                </td>
+                <td>
+                    <button class="btn btn-danger" ng-if="loan.dateIn" ng-click="deleteLoan(loan)">Delete</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <nav aria-label="Page navigation example">
+            <ul class="pagination">
+                <li ng-repeat = "i in getNumber(pageSize) track by $index" class="page-item"><a class="page-link" ng-click="gotoPage($index+1)">{{$index + 1}}</a></li>
+            </ul>
+        </nav>
+    </div>
+</div>
+<div class="modal fade" id="editModal" tabindex="-1" 
+role="dialog" aria-labelledby="editModall" aria-hidden="true" ng-controller="adminDateController">
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title">Loan Menu</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form ng-submit="submit()" name="loanForm">
+            <div class="input-group input-group-sm mb-3">
+                <div class="input-group-prepend">
+                    <span class="input-group-text" required id="inputGroup-sizing-sm">Due Date</span>
+                </div>
+                <input ng-model="loan.dueDate" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" ng-disabled="!loanForm.$dirty" onclick="$('.modal').modal('hide')">Save changes</button>
+            </div>
+        </form>
+    </div>
+</div>
+</div>

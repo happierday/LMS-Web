@@ -82,82 +82,82 @@
 
  <!-- Modal -->
         <!-- <script type="text/ng-template" id="editBook.html"> -->
-            <div class="modal fade" id="editModal" tabindex="-1" 
-                role="dialog" aria-labelledby="editModall" aria-hidden="true" ng-controller="adminBookController">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Book Menu</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form ng-submit="submit()" name="bookForm">
-                            <div class="input-group input-group-sm mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" required id="inputGroup-sizing-sm">Book Title</span>
-                                </div>
-                                <input ng-model="book.title" type="text" name="title" minlength="3" maxlength="40" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
-                            </div>
-                            <div ng-if="bookForm.title.$invalid && bookForm.title.$dirty">
-                                <div class = "alert alert-danger">
-                                    Title should be longer than 3 and less than 40
-                                </div>
-                            </div>
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <label class="input-group-text" for="inputGroupSelect01">Authors</label>
-                                </div>
-                                <select class="custom-select" ng-model="book.authors" name = "authorV" required multiple ng-options="a.name for a in authors track by a.id">
-                                        <option>Select Author</option>
-                                </select>
-                            </div>
-                            <!-- <p>invalid: {{bookForm.authorV.$invalid}}</p>
-                            <p>dirty: {{bookForm.authorV.$dirty}}</p> -->
-                            <div ng-if="bookForm.authorV.$invalid">
-                                <div class = "alert alert-info">
-                                    Choose at least one author
-                                </div>
-                            </div>
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <label class="input-group-text" for="inputGroupSelect01">Genres</label>
-                                </div>
-                                <select class="custom-select" multiple ng-model="book.genres" ng-options="g.name for g in genres track by g.id"></select>
-                            </div>
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <label class="input-group-text" for="inputGroupSelect01">Branches</label>
-                                </div>
-                                <select ng-change="selected()" class="custom-select" multiple ng-model="selectedBranches.value" ng-options="b.name for b in branches track by b.id"></select>
-                            </div>
-                            <div class="input-group input-group-sm mb-3" ng-repeat="branch in selectedBranches.value" id = "branches">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text" id="inputGroup-sizing-sm">{{branch.name}}</span>
-                                </div>
-                                <input ng-model="branch.copies" type="text" name = "copies" class="form-control" required ng-pattern="[0-9]*" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
-                            </div>
-                            <div ng-if="bookForm.copies.$invalid">
-                                <div class = "alert alert-danger">
-                                    Copy can't be empty
-                                </div>
-                            </div>
-                            <!-- <p>copy {{bookForm.copies.$invalid}}</p> -->
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <label class="input-group-text" for="inputGroupSelect01">Publisher</label>
-                                </div>
-                                <select class="custom-select" ng-model="book.publisher" ng-options="p.name for p in publishers track by p.id"></select>
-                            </div>
-                            <!-- <p>invalid {{bookForm.$invalid}}</p>
-                            <p>dirty {{bookForm.$dirty}}</p> -->
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary" ng-disabled="bookForm.$invalid || !bookForm.$dirty" onclick="$('.modal').modal('hide')">Save changes</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
+    <div class="modal fade" id="editModal" tabindex="-1" 
+        role="dialog" aria-labelledby="editModall" aria-hidden="true" ng-controller="adminBookController">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Book Menu</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                </button>
             </div>
+            <div class="modal-body">
+                <form ng-submit="submit()" name="bookForm">
+                    <div class="input-group input-group-sm mb-3">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" required id="inputGroup-sizing-sm">Book Title</span>
+                        </div>
+                        <input ng-model="book.title" type="text" name="title" minlength="3" maxlength="40" class="form-control" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                    </div>
+                    <div ng-if="bookForm.title.$invalid && bookForm.title.$dirty">
+                        <div class = "alert alert-danger">
+                            Title should be longer than 3 and less than 40
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="inputGroupSelect01">Authors</label>
+                        </div>
+                        <select class="custom-select" ng-model="book.authors" name = "authorV" required multiple ng-options="a.name for a in authors track by a.id">
+                                <option>Select Author</option>
+                        </select>
+                    </div>
+                    <!-- <p>invalid: {{bookForm.authorV.$invalid}}</p>
+                    <p>dirty: {{bookForm.authorV.$dirty}}</p> -->
+                    <div ng-if="bookForm.authorV.$invalid">
+                        <div class = "alert alert-info">
+                            Choose at least one author
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="inputGroupSelect01">Genres</label>
+                        </div>
+                        <select class="custom-select" multiple ng-model="book.genres" ng-options="g.name for g in genres track by g.id"></select>
+                    </div>
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="inputGroupSelect01">Branches</label>
+                        </div>
+                        <select ng-change="selected()" class="custom-select" multiple ng-model="selectedBranches.value" ng-options="b.name for b in branches track by b.id"></select>
+                    </div>
+                    <div class="input-group input-group-sm mb-3" ng-repeat="branch in selectedBranches.value" id = "branches">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroup-sizing-sm">{{branch.name}}</span>
+                        </div>
+                        <input ng-model="branch.copies" type="text" name = "copies" class="form-control" required ng-pattern="[0-9]*" aria-label="Small" aria-describedby="inputGroup-sizing-sm">
+                    </div>
+                    <div ng-if="bookForm.copies.$invalid">
+                        <div class = "alert alert-danger">
+                            Copy can't be empty
+                        </div>
+                    </div>
+                    <!-- <p>copy {{bookForm.copies.$invalid}}</p> -->
+                    <div class="input-group mb-3">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="inputGroupSelect01">Publisher</label>
+                        </div>
+                        <select class="custom-select" ng-model="book.publisher" ng-options="p.name for p in publishers track by p.id"></select>
+                    </div>
+                    <!-- <p>invalid {{bookForm.$invalid}}</p>
+                    <p>dirty {{bookForm.$dirty}}</p> -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary" ng-disabled="bookForm.$invalid || !bookForm.$dirty" onclick="$('.modal').modal('hide')">Save changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
         <!-- </script> -->
